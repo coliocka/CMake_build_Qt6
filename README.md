@@ -1,39 +1,30 @@
 # Cmake_build_Qt6_project
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
-
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+将CMakeList.txt文件拷贝到要编译的Qt项目当中，建立一个build文件夹
+在build文件中执行 cmake .. 命令，生成对应的makefile文件
+在执行 make -j32 命令，这里 -j32 是指电脑的线程数，具体看电脑配置
+如不知怎么看，可以打开命令行执行 nproc 就可以看到当前电脑的线程数
+最后再执行 ./可执行文件名称即可
 
 #### 使用说明
+在CMakeList.txt文件中，需要改动的地方是
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+# 设置Qt6开发工具包的安装路径
+set(Qt6_SDK_PATH "/home/crucal/Qt")
+# 查找Qt里的cmake.conf配置文件
+set(Qt6_DIR /home/crucal/Qt/6.3.2/gcc_64/lib/cmake/Qt6)
+# 指定外部库路径
+set(CMAKE_PREFIX_PATH /home/crucal/Qt/6.3.2/gcc_64/)
 
-#### 参与贡献
+这些里的路径改为本机Qt安装的对应路径即可
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+这样执行出来的执行文件为Server，如果想自定义的话，可以将
+# 生成可执行文件
+add_executable(Server ${SOURCES})
 
+# 连接Qt里的模块
+target_link_libraries(Server Qt6::Core Qt6::Widgets Qt6::Multimedia Qt6::Sql
+                            Qt6::Network Qt6::Gui)
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+以上两处的Server改为自定义名称即可
