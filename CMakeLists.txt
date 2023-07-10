@@ -37,6 +37,9 @@ find_package(Qt6 COMPONENTS Gui Core  Sql Multimedia Widgets
 # 指定资源文件
 aux_source_directory(./ SOURCES)
 
+# 加入指定的资源文件qrc，需要资源文件的时候使用即可，资源文件为res.qrc
+# qt_add_resources(SOURCES res.qrc)
+
 # 生成可执行文件
 add_executable(Server ${SOURCES})
 
